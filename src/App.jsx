@@ -7,6 +7,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ItemDetailContainer from './assets/components/ItemDetailContainer'
 
 function App() {
+
+  const data = useGetFirebase()
   
   return (
  <BrowserRouter>

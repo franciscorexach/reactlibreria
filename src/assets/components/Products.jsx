@@ -1,5 +1,27 @@
 import data from "../data/data.json"
 import { useParams, useNavigate, Link } from "react-router-dom"
+import { db } from "../firebaseConfig";
+import { getDocs, collection } from "firebase/firestore"
+import { useEffect, useState } from "react";
+
+const [ data, setData ] = useState([])
+
+useEffect(() => {
+    const fetchData = async () => {
+        try {
+            
+            const querySnapshot = await getDocs(collection(db, "react-libreria"))
+            
+            const obtenerDocumentos = querySnapshot.docs.map(element => ({ id: element.id, ...element.data()}))
+            setData(obtenerDocumentos)
+            console.log(obtenerDocumentos)
+        } catch(error) {
+            console.log(error)
+        }
+    }
+
+    fetchData()
+}, [])
 
 const Products = () => {
     const { category } = useParams()
